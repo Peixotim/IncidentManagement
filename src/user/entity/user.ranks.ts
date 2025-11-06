@@ -1,0 +1,6 @@
+export enum UserRanks {
+  OFFICER = 'OFFICER',
+  DETECTIVE = 'DETECTIVE',
+  SERGEANT = 'SERGEANT',
+  CAPTAIN = 'CAPTAIN',
+}
