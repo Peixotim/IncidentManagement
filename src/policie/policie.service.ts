@@ -7,24 +7,24 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from './entity/user.entity';
-import { CreateUser } from './DTOs/create-user.dto';
-import * as bycrpt from 'bcrypt';
+import { PoliceEntity } from './entity/policie.entity';
+import { CreatePolicie } from './DTOs/create-user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class UserService {
-  private readonly logger = new Logger(UserService.name);
+export class PolicieService {
+  private readonly logger = new Logger(PolicieService.name);
+
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(PoliceEntity)
+    private readonly policeRepository: Repository<PoliceEntity>,
   ) {}
 
-  public async createUser(request: CreateUser): Promise<UserEntity> {
+  public async createUser(request: CreatePolicie): Promise<PoliceEntity> {
     const saltRounds: number = 12;
     try {
-      const requestUser: CreateUser = request;
-      const isExists = await this.userRepository.exists({
-        where: { badge_number: requestUser.badge_number },
+      const isExists = await this.policeRepository.exists({
+        where: { badge_number: request.badge_number },
       });
 
       if (isExists === true) {
@@ -33,15 +33,19 @@ export class UserService {
           HttpStatus.CONFLICT,
         );
       }
-      const salt = await bycrpt.genSalt(saltRounds);
-      const hash = await bycrpt.hash(requestUser.password, salt);
-      const newUser: UserEntity = this.userRepository.create({
-        name: requestUser.name,
-        badge_number: requestUser.badge_number,
+
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hash = await bcrypt.hash(request.password, salt);
+
+      const newPoliceOfficer: PoliceEntity = this.policeRepository.create({
+        name: request.name,
+        badge_number: request.badge_number,
         password: hash,
-        rank: requestUser.rank,
+        rank: request.rank,
       });
-      const saved: UserEntity = await this.userRepository.save(newUser);
+
+      const saved: PoliceEntity =
+        await this.policeRepository.save(newPoliceOfficer);
 
       return saved;
     } catch (error) {

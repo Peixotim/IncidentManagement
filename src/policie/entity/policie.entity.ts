@@ -4,9 +4,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserRanks } from './user.ranks';
+import { PoliceRanks } from './policie.ranks';
 @Entity()
-export class UserEntity {
+export class PoliceEntity {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
@@ -19,8 +19,8 @@ export class UserEntity {
   @Column({ type: 'varchar' })
   password: string;
 
-  @Column({ type: 'enum', enum: UserRanks })
-  rank: UserRanks;
+  @Column({ type: 'enum', enum: PoliceRanks })
+  rank: PoliceRanks;
 
   @CreateDateColumn()
   createdAt: Date;

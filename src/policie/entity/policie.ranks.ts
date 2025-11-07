@@ -1,4 +1,4 @@
-export enum UserRanks {
+export enum PoliceRanks {
   OFFICER = 'OFFICER',
   DETECTIVE = 'DETECTIVE',
   SERGEANT = 'SERGEANT',

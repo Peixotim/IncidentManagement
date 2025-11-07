@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from 'src/user/user.module';
+import { PolicieModule } from 'src/policie/policie.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
@@ -27,7 +27,7 @@ import { ConfigModule } from '@nestjs/config';
         };
       },
     }),
-    UserModule,
+    PolicieModule,
   ],
   controllers: [AppController],
   providers: [AppService],

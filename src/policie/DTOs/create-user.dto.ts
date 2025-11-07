@@ -5,8 +5,8 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { UserRanks } from '../entity/user.ranks';
-export class CreateUser {
+import { PoliceRanks } from '../entity/policie.ranks';
+export class CreatePolicie {
   @IsString({ message: 'Error the name must be of type string !' })
   @IsNotEmpty({ message: 'Error the name field cannot be empty !' })
   name: string;
@@ -25,8 +25,8 @@ export class CreateUser {
   })
   password: string;
 
-  @IsEnum(UserRanks, {
+  @IsEnum(PoliceRanks, {
     message: 'Error the rank must be in accordance with the enum types !',
   })
-  rank: UserRanks;
+  rank: PoliceRanks;
 }
