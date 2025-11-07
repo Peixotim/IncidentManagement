@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UserRanks } from './user.ranks';
 @Entity()
 export class UserEntity {
@@ -16,4 +21,7 @@ export class UserEntity {
 
   @Column({ type: 'enum', enum: UserRanks })
   rank: UserRanks;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }
